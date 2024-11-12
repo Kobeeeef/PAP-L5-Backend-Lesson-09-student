@@ -1,5 +1,6 @@
 const cors = require('cors');
 const express = require('express');
+const connectToDB = require("./connect");
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -28,5 +29,13 @@ app.post('/message/:secret', (req, res) => {
 
 
 //* ********************* Launching the server **************** */
-
+start()
 app.listen(port, () => console.log(`Server running on port ${port}...`));
+
+async function start() {
+    try {
+        await connectToDB();
+    } catch (e) {
+        console.error(e);
+    }
+}
