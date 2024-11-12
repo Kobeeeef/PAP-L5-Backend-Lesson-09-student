@@ -4,7 +4,7 @@ const atlasURI = process.env.DB_CONNECTION;
 const {MongoClient} = require("mongodb")
 
 async function connectToDB() {
-    const client = new MongoClient(atlasURI)
+   global.client = new MongoClient(atlasURI)
     try {
         await client.connect()
         console.log("Connected to DB")
@@ -12,5 +12,7 @@ async function connectToDB() {
         console.error(err)
     }
 }
-
-module.exports = connectToDB;
+function getCollection() {
+    return client.collection('users').find()
+}
+module.exports = { getCollection, connectToDB };
