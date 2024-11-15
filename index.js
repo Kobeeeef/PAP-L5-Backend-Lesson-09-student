@@ -57,7 +57,7 @@ app.patch('/message/:id', async (req, res) => {
 app.delete('/message/:id', async (req, res) => {
     try {
         const messageId = req.params.id;
-        await deleteMessage(messageId);
+        const results = await deleteMessage(messageId);
         res.sendStatus(200);
         console.log("DELETE request received to delete a message");
     } catch (e) {
@@ -65,6 +65,7 @@ app.delete('/message/:id', async (req, res) => {
         res.sendStatus(500);
     }
 });
+
 
 
 start()

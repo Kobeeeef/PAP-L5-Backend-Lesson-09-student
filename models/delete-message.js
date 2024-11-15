@@ -1,12 +1,15 @@
-const {getCollection} = require("../connect")
-const db = getCollection()
+const { getCollection } = require("../connect");
+const { ObjectId } = require('mongodb');
+const db = getCollection();
 
-async function deleteMessage(fieldId, valueId) {
+async function deleteMessage(messageId) {
     try {
-        return await db.deleteOne({ fieldId: valueId})
+        const documentId = ObjectId.createFromHexString(messageId);
+        return await db.deleteOne({ _id: documentId });
     } catch (err) {
-        console.log(err)
+        console.log(err);
+        throw err;
     }
 }
 
-module.exports = {deleteMessage};
+module.exports = deleteMessage;
